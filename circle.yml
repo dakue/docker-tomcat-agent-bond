@@ -1,0 +1,16 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  pre:
+    - docker pull tomcat:8-jre7
+    - docker pull tomcat:8-jre8
+  override:
+    - cd 8-jre7 && docker build -t dakue/tomcat-agent-bond:8-jre7 .
+    - cd 8-jre8 && docker build -t dakue/tomcat-agent-bond:8-jre8 .
+
+test:
+  override:
+    - ./circle-test.sh
+    - if  [ ! -f .passed ]; then docker ps -a | sed -n '2{p;q}' | awk '{ print $1 }' | xargs docker logs; fi;
