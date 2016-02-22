@@ -6,7 +6,7 @@ NAME="Tomcat"
 NAME_PORT="8080"
 DOCKER_IMAGE_BASE="dakue/tomcat-agent-bond"
 
-echo "$(date --iso-8601=seconds) INFO: starting to test"
+echo "$(date -Iseconds) INFO: starting to test"
 for VERSION in $VERSIONS
 do
     VERSION_NAME="es-$(echo $VERSION | sed 's|\.|-|g')"
@@ -23,5 +23,5 @@ do
     echo "INFO: stopping $NAME version $VERSION"
     docker stop $VERSION_NAME
 done
-echo "$(date --iso-8601=seconds) INFO: tests finished"
+echo "$(date -Iseconds) INFO: tests finished"
 touch .passed
