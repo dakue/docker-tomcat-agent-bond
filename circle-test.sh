@@ -13,7 +13,7 @@ do
     echo "INFO: starting $NAME version $VERSION"
     docker run -d -p $NAME_PORT:$NAME_PORT -p 8778:8778 -p 9779:9779 --name $VERSION_NAME $DOCKER_IMAGE_BASE:$VERSION
     echo "INFO: waiting for $NAME to be available"
-    ( i=0; until nc -w 1 -q 0 localhost $NAME_PORT; do echo $i; test $i -ge 5 && break; sleep 5; ((i++)); done ) || exit 0
+    ( i=0; until nc -w 1 -q 0 localhost "$NAME_PORT"; do echo $i; test $i -ge 5 && break; sleep 5; ((i++)); done ) || exit 0
     echo "INFO: $VERSION $NAME output"
     curl -sS http://localhost:$NAME_PORT
     echo "INFO: $VERSION Jolokia output"
